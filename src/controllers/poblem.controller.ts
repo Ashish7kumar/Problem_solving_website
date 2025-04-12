@@ -1,4 +1,4 @@
-import NotImplemented from "../errors/notImplemented.error";
+import NotImplemented from "../errors/notImplemented.error.js";
 import express, { Request,Response,NextFunction } from "express";
 
 

@@ -1,4 +1,4 @@
-import BaseError from "./baseError.error";
+import BaseError from "./baseError.error.js";
 
 export default class NotImplemented extends BaseError
 {

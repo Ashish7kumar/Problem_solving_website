@@ -1,5 +1,5 @@
 import express, { Request,Response,NextFunction, ErrorRequestHandler} from "express";
-import BaseError from "../errors/baseError.error";
+import BaseError from "../errors/baseError.error.js";
 export default function errorHandlerMiddleware(err:Error | BaseError,req:Request,res:Response,next:NextFunction):void
 
 {
@@ -14,7 +14,7 @@ export default function errorHandlerMiddleware(err:Error | BaseError,req:Request
      }
      else{
          res.status(500).json({
-            name:'internal server Error',
+            name:'Some Server Error',
             success:false,
             error:err,
             data:{}
