@@ -6,7 +6,7 @@ export default function errorHandlerMiddleware(err:Error | BaseError,req:Request
      if(err instanceof BaseError)
      {
       res.status(err.statusCode).json({
-            name:err.name,
+             message:`${err.name} have occured`,
              success:false,
              error:err.details,
              data:{}
@@ -14,7 +14,7 @@ export default function errorHandlerMiddleware(err:Error | BaseError,req:Request
      }
      else{
          res.status(500).json({
-            name:'Some Server Error',
+            message:'Some Server Error have occured',
             success:false,
             error:err,
             data:{}

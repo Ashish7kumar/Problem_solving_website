@@ -1,10 +1,18 @@
 import NotImplemented from "../errors/notImplemented.error.js";
 import express, { Request,Response,NextFunction } from "express";
-
-
-export function addProblem(req: Request, res: Response,next:NextFunction):void{
+import { problemService} from "../service/problem.service.js";
+import problemRepositoryMongo from "../repository/problemRepositories/problemRepositoryMongo.js";
+const ProblemService=new problemService(new problemRepositoryMongo);
+export  async function addProblem(req: Request, res: Response,next:NextFunction):Promise<void>{
   try{
-   throw new NotImplemented('add-problem');
+   const problem=await ProblemService.createProblem(req);
+   res.status(200).json({
+    message:"Succesfully created problem",
+    success:true,
+    data:problem,
+    error:{}
+   });
+   return;
   }
   catch(error)
   {
@@ -13,7 +21,7 @@ export function addProblem(req: Request, res: Response,next:NextFunction):void{
   };
 export function getProblem(req:Request,res:Response,next:NextFunction):void{
   try{
-    throw new NotImplemented('add-problem');
+    throw new NotImplemented('get-problem');
    }
    catch(error)
    {
@@ -23,16 +31,16 @@ export function getProblem(req:Request,res:Response,next:NextFunction):void{
 export function getProblems(req:Request,res:Response,next:NextFunction):void
 {
   try{
-    throw new NotImplemented('add-problem');
+    throw new NotImplemented('get-problems');
    }
    catch(error)
    {
      next(error);
    }
 };
-export function deleteProblems(req:Request,res:Response,next:NextFunction):void{
+export function deleteProblem(req:Request,res:Response,next:NextFunction):void{
   try{
-    throw new NotImplemented('add-problem');
+    throw new NotImplemented('delete-problem');
    }
    catch(error)
    {
@@ -41,7 +49,7 @@ export function deleteProblems(req:Request,res:Response,next:NextFunction):void{
 };
 export function updateProblems(req:Request,res:Response,next:NextFunction):void{
   try{
-    throw new NotImplemented('add-problem');
+    throw new NotImplemented('update-problem');
    }
    catch(error)
    {

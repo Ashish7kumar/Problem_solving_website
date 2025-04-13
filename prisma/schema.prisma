@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+   output = "../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+enum Difficulty{
+  Easy
+  Medium
+  Hard
+}
+type TestCase {
+  input  String
+  output String
+}
+model problemSchema{
+   id String @id @default(auto()) @map("_id") @db.ObjectId
+   title String
+   description String
+   difficulty Difficulty @default(Easy)
+   testCase  TestCase[]
+}

@@ -1,13 +1,11 @@
 import { MongoClient } from "mongodb";
-import { MongoDbUser,MongoDbPassword } from "./server.config.js";
+import {DATABASE_URL} from "./server.config.js"
 
 
   async function DbConnection() {
     try{
        
-        const uri =
-        `mongodb+srv://${MongoDbUser}:${MongoDbPassword}@cluster0.x8to42s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-
+        const uri=DATABASE_URL as string;
        await MongoClient.connect(uri);
     }
     catch(e)
