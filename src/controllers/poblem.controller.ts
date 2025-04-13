@@ -38,9 +38,15 @@ export function getProblems(req:Request,res:Response,next:NextFunction):void
      next(error);
    }
 };
-export function deleteProblem(req:Request,res:Response,next:NextFunction):void{
+export async function deleteProblem(req:Request,res:Response,next:NextFunction):Promise<void>{
   try{
-    throw new NotImplemented('delete-problem');
+      const deletedProblem=await ProblemService.deleteProblemByTitle(req);
+      res.status(200).json({
+        message:"Succesfully deleted problem",
+        success:true,
+        data:deleteProblem,
+        error:{}
+       });
    }
    catch(error)
    {

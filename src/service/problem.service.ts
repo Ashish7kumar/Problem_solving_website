@@ -19,4 +19,10 @@ export class problemService{
         return problem;
 
     }
+    async deleteProblemByTitle(req:Request)
+    {
+       const title=req.params.id;
+       const deletedProblem=await this.repository.deleteProblem(title);
+       return deletedProblem;
+    }
 }
