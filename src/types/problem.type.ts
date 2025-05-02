@@ -1,4 +1,4 @@
-import { Difficulty } from "@prisma/client";
+import Difficulty from "./Difficulty.type.js";
 import testCase from "./testCase.type.js";
 
 type ProblemType = {

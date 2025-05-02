@@ -1,9 +1,10 @@
 import express from 'express';
 import * as problemController from '../controllers/poblem.controller.js';
+import authentication from '../middleware/Authentication.js';
 const problemRouter=express.Router();
 problemRouter.get('/:id',problemController.getProblem);
 problemRouter.get('/',problemController.getProblems);
-problemRouter.post('/',problemController.addProblem);
-problemRouter.delete('/:id',problemController.deleteProblem);
-problemRouter.patch('/:id',problemController.updateProblems);
+problemRouter.post('/',authentication,problemController.addProblem);
+problemRouter.delete('/:id',authentication,problemController.deleteProblem);
+problemRouter.patch('/:id', authentication,problemController.updateProblems);
 export default problemRouter;

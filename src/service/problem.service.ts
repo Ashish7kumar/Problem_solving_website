@@ -1,7 +1,7 @@
 import problemRepositoryMongo from "../repository/problemRepositories/problemRepositoryMongo.js";
 import { Request } from "express";
 import testCase from "../types/testCase.type.js";
-import { Difficulty } from "@prisma/client";
+import Difficulty from "../types/Difficulty.type.js";
 import { profileEnd } from "console";
 import ProblemType from "../types/problem.type.js";
 

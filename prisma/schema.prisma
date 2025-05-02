@@ -1,24 +1,28 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../app/generated"
 }
 
 datasource db {
   provider = "mongodb"
   url      = env("MONGO_URL")
 }
-enum Difficulty{
+
+enum Difficulty {
   Easy
   Medium
   Hard
 }
+
 type TestCase {
   input  String
   output String
 }
-model problemSchema{
-   id String @id @default(auto()) @map("_id") @db.ObjectId
-   title String @unique
-   description String
-   difficulty Difficulty @default(Easy)
-   testCase  TestCase[]
+
+model problemCollection{
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  title       String     @unique
+  description String
+  difficulty  Difficulty @default(Easy)
+  testCase    TestCase[]
 }

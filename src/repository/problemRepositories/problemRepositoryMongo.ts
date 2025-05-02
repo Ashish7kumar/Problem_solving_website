@@ -1,23 +1,24 @@
-import {Prisma,PrismaClient}  from "@prisma/client";
-import { Difficulty } from "../../generated/prisma/index.js";
+import {PrismaClient}  from "../../../app/generated/client.js";
+import Difficulty from "../../types/Difficulty.type.js";
 import testCase from "../../types/testCase.type.js";
 import schemaData from "../../types/schemaData.type.js";
 import NotFound from "../../errors/notFound.error.js";
-import { compileFunction } from "vm";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import ProblemType from "../../types/problem.type.js";
 const problemModel=new PrismaClient();
 export default class problemRepositoryMongo{
-    async create(description:string,title:string,testCase:testCase[],difficulty?:Difficulty){
+ 
+    async create(description:string,title:string,testCase:testCase[],difficulty:Difficulty=Difficulty.Easy){
         try{
         const data:schemaData={title:title,
             description:description,
-            testCase:testCase}
-            if(difficulty)
-            {
-                data.difficulty=difficulty;
-            }
+            testCase:testCase,
+            difficulty:difficulty
+          }
+
             
-         const problem=await problemModel.problemSchema.create(
+            
+         const problem=await problemModel.problemCollection.create(
             {data});
             return problem;}
             catch(e){
@@ -27,14 +28,14 @@ export default class problemRepositoryMongo{
     }
     async deleteProblem(title:string){
         try{
-            const deleted = await problemModel.problemSchema.delete({
+            const deleted = await problemModel.problemCollection.delete({
                 where: { title }
               });
        
         }
         catch(error)
         {  
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error instanceof PrismaClientKnownRequestError) {
               
                 if (error.code === 'P2025') {
                  
@@ -54,7 +55,7 @@ export default class problemRepositoryMongo{
     }
     async getProblem(title: string) {
       try {
-        const problem = await problemModel.problemSchema.findFirst({
+        const problem = await problemModel.problemCollection.findFirst({
           where: { title }
         });
     
@@ -65,7 +66,7 @@ export default class problemRepositoryMongo{
     
         return problem; 
       } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error instanceof PrismaClientKnownRequestError) {
           console.log("Prisma error occurred:", error);
           throw error;
         } else {
@@ -77,7 +78,7 @@ export default class problemRepositoryMongo{
     async getAllProblems()
     {
       try{
-        const problems=await problemModel.problemSchema.findMany({});
+        const problems=await problemModel.problemCollection.findMany({});
         return problems;
       }
       catch(error)
@@ -88,14 +89,14 @@ export default class problemRepositoryMongo{
     async updateProblemfromTitle(data:ProblemType,title:string)
     {
       try{
-         const updatedProblem=await problemModel.problemSchema.update({
+         const updatedProblem=await problemModel.problemCollection.update({
           where:{title},
           data: data
        } );
       }
       catch(error)
       {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error instanceof PrismaClientKnownRequestError) {
               
           if (error.code === 'P2025') {
            
