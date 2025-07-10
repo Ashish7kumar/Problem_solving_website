@@ -16,8 +16,8 @@ function authentication(req:Request,res:Response,next:NextFunction): void
      }
      const secretKey = process.env.JWT_SECRET;
      const decoded  = jwt.verify(token, secretKey as string);
-     if (typeof decoded === 'object' && 'role' in decoded) {
-        if (decoded.role === "ADMIN") {
+     if (typeof decoded === 'object' && 'userId' in decoded) {
+        if (decoded.userId === "ADMIN") {
             (req as any).user = decoded;
 
             next();
@@ -25,6 +25,7 @@ function authentication(req:Request,res:Response,next:NextFunction): void
             res.status(403).json({ message: 'Forbidden: Admins only' });
         }
     } else {
+        console.log(decoded);
         res.status(401).json({ message: 'Invalid token structure' });
     }
 
